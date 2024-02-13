@@ -1,0 +1,47 @@
+[gd_scene load_steps=7 format=3 uid="uid://bgcqp8sjjx1su"]
+
+[ext_resource type="Script" path="res://addons/Basic FPS Player/Src/basic_player_startup.gd" id="1_d3wcl"]
+[ext_resource type="PackedScene" uid="uid://kmyakts4l64t" path="res://addons/Basic FPS Player/Src/basic_player_head.tscn" id="2_jj43s"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_elq40"]
+albedo_color = Color(0.427451, 0.129412, 0.129412, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_e7gpm"]
+material = SubResource("StandardMaterial3D_elq40")
+size = Vector3(80, 0.2, 80)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lucrc"]
+size = Vector3(65.2429, 4.49524, 65.289)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a1lk1"]
+
+[node name="Level3" type="Area3D"]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D"]
+mesh = SubResource("BoxMesh_e7gpm")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24988, 1.74762, 0.276276)
+shape = SubResource("BoxShape3D_lucrc")
+
+[node name="Basic FPS Player" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.4404, 8.2832, -1.9084)
+script = ExtResource("1_d3wcl")
+
+[node name="Head" parent="Basic FPS Player" instance=ExtResource("2_jj43s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412659, 0)
+
+[node name="Camera3D" parent="Basic FPS Player/Head" index="0"]
+current = true
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Basic FPS Player"]
+shape = SubResource("CapsuleShape3D_a1lk1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.24988, 1.74762, 0.276276)
+shape = SubResource("BoxShape3D_lucrc")
+
+[editable path="Basic FPS Player/Head"]
